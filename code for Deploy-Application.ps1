@@ -10,7 +10,7 @@
 		$loggedindomainuser = (Get-Process Explorer -IncludeUsername | Where-Object { $_.Username -notlike "*SYSTEM" }).Username
 		$loggedinusername = $loggedindomainuser.split('\')[1]
 		$userdocpath = "C:\Users\$loggedinusername\Documents"
-		$genericscriptname = "Connect to Servers 2021 - silent.bat"
+		$genericscriptname = "Connect to Servers.bat"
 		$domainscriptpath = "\\example.com\SYSVOL\example.com\scripts"
 		$userscriptpath = ([adsisearcher]"(samaccountname=$loggedinusername)").FindOne().Properties['scriptpath'] 
 		$userxmldocpath = "map drives if connected to vpn.xml"
