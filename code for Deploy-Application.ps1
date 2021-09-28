@@ -7,7 +7,6 @@
 		#populate variables. 
 			#CHANGE $domainscriptpath and $xmlDoc.task.registrationinfo.author to use your domain. 
 			#$genericscriptname can be changed, but must also be changed in the xml file
-	
 		$loggedindomainuser = (Get-Process Explorer -IncludeUsername | Where-Object { $_.Username -notlike "*SYSTEM" }).Username
 		$loggedinusername = $loggedindomainuser.split('\')[1]
 		$userdocpath = "C:\Users\$loggedinusername\Documents"
@@ -17,6 +16,7 @@
 		$userxmldocpath = "map drives if connected to vpn.xml"
 		$xmldocstring = '/c start /min' + ' "connect-to-servers" ' + '"' + "$userdocpath\$genericscriptname" + '"' + ' ^' + '& exit'
 
+		#copy the logon script from your domain's sysvol folder to the user's docs folder and append gpupdate to it
 		If (!(Test-Path -Path "$userdocpath\$userscriptpath" -PathType leaf))
 		{
 			Copy-Item "$domainscriptpath\$userscriptpath" -Destination "$userdocpath"
@@ -25,6 +25,7 @@
 			Add-Content -Path "$userdocpath\$genericscriptname" -Value "gpupdate /force"
 		}
 
+		#modify the xml file, changing the author and the arguments fields
 		If (!(Test-Path -Path "$userdocpath\$userxmldocpath" -PathType leaf))
 		{
 			[xml]$xmlDoc = Get-Content "$dirFiles\map drives if connected to vpn.xml"
@@ -33,7 +34,7 @@
 			$xmlDoc.Save("$userdocpath\$userxmldocpath")
 		}
 
-		#register scheduled task
+		#register a scheduled task for the logged in user using the xml file
 		$userdocpath = "C:\Users\$loggedinusername\Documents"
 		$userxmldocpath = "map drives if connected to vpn.xml"
 
@@ -45,6 +46,7 @@
 			}
 		}
 
+		#copy the text file for SCCM/MECM application detection
 		If (!(Test-Path -Path "$userdocpath\VPNDetectionTaskInstalled.txt" -PathType leaf))
 		{
 			Copy-Item "$dirFiles\VPNDetectionTaskInstalled.txt" -Destination "$userdocpath"
