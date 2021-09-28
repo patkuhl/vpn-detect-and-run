@@ -11,6 +11,7 @@
 		$loggedinusername = $loggedindomainuser.split('\')[1]
 		$userdocpath = "C:\Users\$loggedinusername\Documents"
 		$genericscriptname = "Connect to Servers.bat"
+		#CHANGE THE $domainscriptpath VARIABLE TO USE YOUR DOMAIN
 		$domainscriptpath = "\\example.com\SYSVOL\example.com\scripts"
 		$userscriptpath = ([adsisearcher]"(samaccountname=$loggedinusername)").FindOne().Properties['scriptpath'] 
 		$userxmldocpath = "map drives if connected to vpn.xml"
@@ -29,6 +30,7 @@
 		If (!(Test-Path -Path "$userdocpath\$userxmldocpath" -PathType leaf))
 		{
 			[xml]$xmlDoc = Get-Content "$dirFiles\map drives if connected to vpn.xml"
+			#CHANGE THE $xmlDoc.task.registrationinfo.author VARIABLE TO USE YOUR DOMAIN
 			$xmlDoc.task.registrationinfo.author = "EXAMPLEDOMAIN\$loggedinusername"
 			$xmlDoc.task.actions.exec.arguments = $xmldocstring
 			$xmlDoc.Save("$userdocpath\$userxmldocpath")
