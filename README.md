@@ -1,4 +1,5 @@
 # vpn-detection-folder-reconnection
+
 Installs a Windows Task Scheduler task that, when a VPN connection to your domain is detected, will run the currently logged in user's logon script (which will include gpupdate).
 
 Details
