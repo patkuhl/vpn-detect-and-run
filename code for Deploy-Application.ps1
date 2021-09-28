@@ -1,7 +1,6 @@
 ﻿
 		#Copy the code below into your Deploy-Application.ps1 file, in the section labeled "<Perform Installation tasks here>"
-		
-		
+				
 		## <Perform Installation tasks here>
 
 		#populate variables. 
