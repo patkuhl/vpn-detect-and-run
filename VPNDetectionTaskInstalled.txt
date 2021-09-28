@@ -1,1 +1,1 @@
-Task is installed
+Task Scheduler task is installed
