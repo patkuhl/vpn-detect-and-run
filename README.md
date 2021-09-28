@@ -9,3 +9,4 @@ Installation Instructions
 
 1. Copy the PSADT code into your Deploy-Application.ps1 file, in the Installation section
 2. Copy the xml and txt files into the Files directory in your appplication's PSADT folder
+3. copy the application detection script into the custom script window in the MECM/SCCM Application's Deployment Type properties Detection tab
