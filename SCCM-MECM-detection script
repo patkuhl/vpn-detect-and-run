@@ -1,0 +1,4 @@
+$loggedindomainuserfull = (Get-Process Explorer -IncludeUsername | Where-Object { $_.Username -notlike "*SYSTEM" }).Username
+$loggedinusername = $loggedindomainuserfull.split('\')[1]
+$Path = "C:\Users\$loggedinusername\Documents\VPNDetectionTaskInstalled.txt"
+If(Test-Path $Path) { "Installed" } Else { "" }
